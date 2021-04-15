@@ -11,7 +11,6 @@ const PokemonSearch = observer(() => {
 
   const setSearchPage = useCallback(_.throttle(val => {
     if (val.length > 2) {
-      console.log(val)
       $search.set(val)
     } else {
       $search.set('')

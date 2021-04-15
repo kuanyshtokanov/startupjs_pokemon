@@ -88,7 +88,7 @@ const PokemonForm = observer((pokemon) => {
           onChangeNumber=setFormValue('order')
           value=Number(formValues.order)
           buttons='horizontal'
-          inputStyle={
+          inputStyleName={
             textAlign:'left',
           }
         )

@@ -1,14 +1,14 @@
 
 import React, { useState } from 'react'
 import { observer, usePage, useQuery } from 'startupjs'
-import { Div, Pagination, Select } from '@startupjs/ui'
+import { Div, Pagination, Select, Row } from '@startupjs/ui'
 
 import './index.styl'
 
 const pageSizes = [6, 12]
 
 const PokemonsPagination = observer(() => {
-  const [curPage, setPage] = useState()
+  const [currentPage, setCurrentPage] = useState()
   const [curPagesSize, setCurPageSize] = useState(6)
   const [, $page] = usePage('page')
   const [pageSize = 6, $pageSize] = usePage('pageSize')
@@ -20,11 +20,9 @@ const PokemonsPagination = observer(() => {
   }
 
   if (search) {
-    console.log('search', search)
     $match.name = { $regex: search, $options: 'i' }
   }
   if (filterValues.length) {
-    console.log('filters', filterValues)
     $match.types = { $in: filterValues }
   }
 
@@ -34,11 +32,10 @@ const PokemonsPagination = observer(() => {
       { $count: 'count' }
     ]
   })
-  console.log('count', count)
 
   const onPageChange = (val) => {
     $page.set(val)
-    setPage(val)
+    setCurrentPage(val)
   }
 
   const onPageSizeChange = (val) => {
@@ -47,10 +44,10 @@ const PokemonsPagination = observer(() => {
   }
 
   return pug`
-    Div.root
+    Row.root
       Pagination(
         variant='compact'
-        page=curPage
+        page=currentPage
         pages=Math.ceil(count / pageSize)
         onChangePage=onPageChange
       )

@@ -1,25 +1,28 @@
 import React from 'react'
 import { model, emit } from 'startupjs'
-import { Div, Span, Avatar, Card, Tag, Button } from '@startupjs/ui'
+import { Div, Span, Avatar, Card, Button, Row } from '@startupjs/ui'
 
 import { POKEMON_TYPES } from '../../const'
+import TagCustom from 'components/Tag'
 import './index.styl'
 
 const PokemonCard = ({
   data: { id, name, imageUrl, order, types, abilities, additionalInfo },
   detailForm
 }) => {
+  const curTypes = types.map(item => item.toLowerCase())
+  console.log('curColor', curTypes)
   const onEditClick = () => {
     emit('url', '/pokemon/form/edit/' + id)
   }
 
   const onDeleteClick = async () => {
-    emit('url', '/')
     await model.del('pokemons.' + id)
+    emit('url', '/')
   }
 
   return pug`
-    Card.wrapper(styleName=[{detailForm}])
+    Card.wrapper(styleName={detailForm})
       Div.top
         Span.name=name
         if order
@@ -33,19 +36,29 @@ const PokemonCard = ({
           if types
             Div.types
               Span.typesLabel='Types:'
-              each type, index in types
-                Tag.tag(styleName=[{first: index===0}] key=index style=({ backgroundColor: (POKEMON_TYPES.find(t=> t.name === type) || []).color })) #{type.toUpperCase()}
+              Row
+                each type, index in types
+                  TagCustom(
+                    first=index===0
+                    poison=type==='POISON'
+                    water=type==='WATER'
+                    electric=type==='ELECTRIC'
+                    fire=type==='FIRE'
+                    flying=type==='FLYING'
+                    key=index
+                  ) #{type.toUpperCase()}
           Div.abilities
             Span.abilitiesLabel='Abilities:'
             Span.abilitiesTxt=abilities
           Div.buttons
-            Button.btn(
+            Button(
               onPress=onEditClick
             ) Edit
-            Button.btn.last(
+            Button.btn(
               onPress=onDeleteClick
             ) Delete
   `
 }
+// style=({ backgroundColor: (POKEMON_TYPES.find(t=> t.name === type) || []).color })
 
 export default PokemonCard

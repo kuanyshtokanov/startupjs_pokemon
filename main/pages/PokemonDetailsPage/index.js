@@ -6,14 +6,12 @@ import { Content } from '@startupjs/ui'
 import './index.styl'
 import PokemonDetails from 'components/PokemonDetails'
 
-export default observer(function PokemonDetailsPage ({
+export default observer(function PokemonDetailsPage({
   match: {
     params: { pokemonId }
   }
 }) {
   const [pokemon] = useDoc('pokemons', pokemonId)
-
-  // console.log(pokemon)
 
   return pug`
     ScrollView.root

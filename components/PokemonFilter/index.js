@@ -5,6 +5,7 @@ import { Div, Multiselect, Tag } from '@startupjs/ui'
 
 import './index.styl'
 import { POKEMON_TYPES } from '../../const'
+import TagCustom from 'components/Tag'
 
 const PokemonFilter = observer(() => {
   const [filterValues, $filterValues] = usePage('filterValues')
@@ -16,8 +17,17 @@ const PokemonFilter = observer(() => {
   }
 
   const renderTag = ({ record }) => {
+    console.log('record', record)
     return pug`
-      Tag(style=({backgroundColor: record.color})) #{record.label}
+      Tag.tag(
+        styleName={
+          poison:record.value==='POISON',
+          water:record.value==='WATER',
+          electric:record.value==='ELECTRIC',
+          fire:record.value==='FIRE',
+          flying:record.value==='FLYING'
+        }
+      ) #{record.label}
     `
   }
 

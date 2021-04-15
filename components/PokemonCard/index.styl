@@ -1,15 +1,15 @@
 .wrapper
   flex 1
   flex-basis auto
-  min-width 200px
+  min-width 25u
   width 100%
   align-items center
   margin 2u 1u
   justify-content space-between
   +tablet()
-    max-width calc(50% - 2u)
+    max-width 45%
   +desktop()
-    max-width calc(33% - 2u)
+    max-width 31%
     
 .cardItem
   margin-top 1u
@@ -36,12 +36,7 @@
   &.first
     margin-left 0
 
-.abilities
-  overflow hidden
-  width 80%
-
 .abilitiesTxt
   text-align center
-
-.buttons
-  flex-direction row
+  overflow hidden
+  width 80%

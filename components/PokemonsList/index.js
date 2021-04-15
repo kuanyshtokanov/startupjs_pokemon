@@ -25,7 +25,6 @@ const PokemonsList = observer(() => {
 
   const [pokemons = []] = useQuery('pokemons', query)
 
-  console.log('PokemonsList', pokemons)
   return pug`
     Div.root
       Div.wrapper
