@@ -17,7 +17,6 @@ const PokemonFilter = observer(() => {
   }
 
   const renderTag = ({ record }) => {
-    console.log('record', record)
     return pug`
       Tag.tag(
         styleName={

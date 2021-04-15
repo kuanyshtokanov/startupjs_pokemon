@@ -11,7 +11,6 @@ const PokemonCard = ({
   detailForm
 }) => {
   const curTypes = types.map(item => item.toLowerCase())
-  console.log('curColor', curTypes)
   const onEditClick = () => {
     emit('url', '/pokemon/form/edit/' + id)
   }
