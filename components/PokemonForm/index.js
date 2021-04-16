@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react'
-import { observer, useValue, useDoc, model, emit } from 'startupjs'
+import { observer, useValue, useDoc, useModel, model, emit } from 'startupjs'
 import { Div, Button, Tag, Span, TextInput, NumberInput, Multiselect, Portal, Alert } from '@startupjs/ui'
 
 import './index.styl'
@@ -23,7 +23,7 @@ const requiredFields = [
 
 const PokemonForm = observer((pokemon) => {
   const [alertField, setAlertField] = useState('')
-  const [pokemonData] = useDoc('pokemons', pokemon.id)
+  const [pokemonData, $pokemonData] = useDoc('pokemons', pokemon.id)
   const [formValues, $formValues] = useValue(pokemonData ? { ...pokemonData } : {})
 
   const checkValidation = () => {
@@ -39,7 +39,7 @@ const PokemonForm = observer((pokemon) => {
 
     if (!isNotValid) {
       if (pokemonData) {
-        await model.set(`pokemons.${pokemon.id}`, formValues)
+        await $pokemonData.set(formValues)
       } else {
         await model.add('pokemons', formValues)
       }
