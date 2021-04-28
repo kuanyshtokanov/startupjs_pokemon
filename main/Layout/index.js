@@ -1,9 +1,9 @@
 import React from 'react'
 import { observer, emit, useValue, useLocal } from 'startupjs'
-import { Button, Div, H1, Layout, Menu, Row, SmartSidebar } from '@startupjs/ui'
+import './index.styl'
+import { Row, Div, Layout, SmartSidebar, Menu, Button, H1 } from '@startupjs/ui'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import APP from '../../app.json'
-import './index.styl'
 
 const { displayName } = APP
 
@@ -22,18 +22,18 @@ const MenuItem = observer(({ url, children }) => {
 export default observer(function ({ children }) {
   const [opened, $opened] = useValue(false)
 
-  function renderSidebar () {
+  function renderSidebar() {
     return pug`
       Menu.sidebar-menu
         MenuItem(url='/') App
-        MenuItem(url='/about') About
+        MenuItem(url='/pokemon/form/new') Create
     `
   }
 
   return pug`
     Layout
       SmartSidebar.sidebar(
-        $open=$opened
+        path=$opened.path()
         renderContent=renderSidebar
       )
         Row.menu

@@ -1,14 +1,23 @@
 import React from 'react'
 import { ScrollView } from 'react-native'
 import { observer } from 'startupjs'
-import { Content } from '@startupjs/ui'
-import { TestComponent } from 'components'
-import './index.styl'
+import { Content, Div, Portal, Layout } from '@startupjs/ui'
 
-export default observer(function PHome () {
+import './index.styl'
+import PokemonsList from 'components/PokemonsList'
+import PokemonSearch from 'components/PokemonSearch'
+import PokemonFilter from 'components/PokemonFilter'
+
+export default observer(function PHome() {
   return pug`
     ScrollView.root
-      Content
-        TestComponent
+      Portal.Provider
+        Layout.layout(width='desktop')
+          Div.section.first
+            PokemonSearch
+          Div.section
+            PokemonFilter
+          Div.section
+            PokemonsList
   `
 })
